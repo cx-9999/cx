@@ -1,0 +1,41 @@
+/*===============================================
+*   文件名称：test1.c
+*   创 建 者：     
+*   创建日期：2026年04月13日
+*   描    述：
+================================================*/
+#include <stdio.h>
+#include <sys/types.h>
+#include <sys/stat.h>
+#include <fcntl.h>
+
+
+int main(int argc, char *argv[])
+{ 
+    int fd;
+    fd = open("1.txt", O_RDWR | O_CREAT, 0664);
+
+    if(fd == -1)
+    {
+        perror("open fail");
+        return -1;
+    }
+    
+    printf("fd is %d\n",fd);
+    
+    size_t ret;
+    char buf [1024] = {0};
+    ret = read(fd,buf,8);
+
+    if(ret == -1) 
+    {
+        perror("read fail\n");
+        return -1;
+    }
+
+    printf("%s\n",buf);
+    //关闭
+    close(fd);
+ 
+    return 0;
+} 
